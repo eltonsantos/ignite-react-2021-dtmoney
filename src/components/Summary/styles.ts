@@ -26,6 +26,14 @@ export const Container = styled.main`
       line-height: 3rem;
     }
 
+    .incomeAmount {
+      color: var(--green);
+    }
+    
+    .outcomeAmount {
+      color: var(--red);
+    }
+
     &.highlight-background {
       background: var(--green);
       color: var(--shape);
