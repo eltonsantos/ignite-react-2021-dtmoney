@@ -1,24 +1,10 @@
-import { useEffect, useState } from 'react';
-import { api } from '../../services/api';
+import { useContext } from 'react';
+import { TransactionsContext } from '../../TransactionsContext';
 import * as S from './styles';
-
-interface Transaction {
-  id: number;
-  title: string;
-  amount: number;
-  type: string;
-  category: string;
-  createdAt: string;
-}
 
 export function TransactionsTable() {
 
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-
-  useEffect(() => {
-    api.get('transactions')
-      .then(response => setTransactions(response.data.transactions))
-  }, [])
+  const transactions = useContext(TransactionsContext);
   
   return (
     <S.Container>
@@ -32,14 +18,14 @@ export function TransactionsTable() {
           </tr>
         </thead>
         <tbody>
-          { transactions.length? transactions.map((transaction) => {
+          {transactions.length ? transactions.map((transaction) => {
             return (
               <tr key={transaction.id}>
                 <td>{transaction.title}</td>
                 <td className={transaction.type}>
                   {new Intl.NumberFormat('pt-BR', {
-                     style: 'currency',
-                     currency: 'EUR'
+                    style: 'currency',
+                    currency: 'EUR'
                   }).format(transaction.amount)}
                 </td>
                 <td>{transaction.category}</td>
@@ -50,7 +36,7 @@ export function TransactionsTable() {
                 </td>
               </tr>
             )
-          }) : 'Não há transações cadastradas' }
+          }) : <tr><td colSpan={4} align="center">Não há transações cadastradas</td></tr>}
         </tbody>
       </table>
     </S.Container>
