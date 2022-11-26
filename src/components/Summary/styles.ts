@@ -38,5 +38,10 @@ export const Container = styled.main`
       background: var(--green);
       color: var(--shape);
     }
+
+    &.highlight-background-negative {
+      background: var(--red);
+      color: var(--shape)
+    }
   }
 `;
